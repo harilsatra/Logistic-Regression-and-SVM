@@ -274,7 +274,6 @@ for i in range(n_class):
 """
 Script for Support Vector Machine
 """
-
 print('\n\n--------------SVM-------------------\n\n')
 #Creating svc model with linear kernel
 clf = SVC(kernel = 'linear')
@@ -292,32 +291,32 @@ predicted_label = clf.predict(test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 
 #Creating svc model with radial basis and gamma set to 1 
-clf = SVC(gamma = '1')
+clf = SVC(gamma = 1)
 clf.fit(train_data,train_label.ravel())
-#Finding accuracy on Training Dataset for linear kernel and other default params
+#Finding accuracy on Training Dataset for radial basis and gamma set to 1 
 predicted_label = clf.predict(train_data)
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
 
-#Finding accuracy on Validation Dataset for linear kernel and other default params
+#Finding accuracy on Validation Dataset for radial basis and gamma set to 1 
 predicted_label = clf.predict(validation_data)
 print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
 
-#Finding accuracy on Testing Dataset for linear kernel and other default params
+#Finding accuracy on Testing Dataset for radial basis and gamma set to 1 
 predicted_label = clf.predict(test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 
 #Creating svc model with radial basis and gamma set to default
 clf = SVC()
-clf.fit(train_data,train_label.ravel())
-#Finding accuracy on Training Dataset for linear kernel and other default params
+clf.fit(train_data,train_label.astype(int).ravel())
+#Finding accuracy on Training Dataset for radial basis and gamma set to default
 predicted_label = clf.predict(train_data)
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
 
-#Finding accuracy on Validation Dataset for linear kernel and other default params
+#Finding accuracy on Validation Dataset for radial basis and gamma set to default
 predicted_label = clf.predict(validation_data)
 print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
 
-#Finding accuracy on Testing Dataset for linear kernel and other default params
+#Finding accuracy on Testing Dataset for radial basis and gamma set to default
 predicted_label = clf.predict(test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 
