@@ -3,6 +3,7 @@ from scipy.io import loadmat
 from scipy.optimize import minimize
 from scipy.special import expit
 import winsound
+#import os
 
 
 def preprocess():
@@ -302,3 +303,4 @@ predicted_label_b = mlrPredict(W_b, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label_b == test_label).astype(float))) + '%')
 
 winsound.Beep(300,2000)
+#os.system('say"Finish"')
