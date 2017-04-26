@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
+from scipy.special import expit
+
 
 
 def preprocess():
@@ -85,7 +87,8 @@ def preprocess():
 
 
 def sigmoid(z):
-    return 1.0 / (1.0 + np.exp(-z))
+    return expit(z)
+    #return 1.0 / (1.0 + np.exp(-z))
 
 
 def blrObjFunction(initialWeights, *args):
@@ -104,12 +107,27 @@ def blrObjFunction(initialWeights, *args):
                     error function
     """
     train_data, labeli = args
-
     n_data = train_data.shape[0]
+    bias = np.ones(n_data)
+    train_data = np.insert(train_data,0,bias,axis=1)
+    sig = np.dot(initialWeights,np.transpose(train_data))
+    theta = sigmoid(sig)
+    #print(theta)
     n_features = train_data.shape[1]
+    print(n_features)
     error = 0
     error_grad = np.zeros((n_features + 1, 1))
+    for i in range(n_data):
+        if labeli[i] == 1:
+            error = error + np.log(theta[i])
+            
+        else:
+            error = error + np.log(1 - theta[i])
+   
+    error = (-1 * error) / (n_data)  
+    print(error)        
 
+    error_grad = np.transpose(np.dot(np.transpose(np.subtract(theta,labeli)),train_data))
     ##################
     # YOUR CODE HERE #
     ##################
