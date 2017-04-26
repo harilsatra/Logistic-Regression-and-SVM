@@ -2,7 +2,7 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
 from scipy.special import expit
-
+import winsound
 
 
 def preprocess():
@@ -117,6 +117,7 @@ def blrObjFunction(initialWeights, *args):
     #print(n_features)
     error = 0
     error_grad = np.zeros((n_features + 1, 1))
+    
     for i in range(n_data):
         if labeli[i] == 1:
             error = error + np.log(theta[i])
@@ -129,7 +130,7 @@ def blrObjFunction(initialWeights, *args):
     theta = np.reshape(theta,[len(theta),1])   
     #print(np.shape(theta))
     #print(np.subtract(theta,labeli))
-    error_grad = np.transpose(np.dot(np.transpose(np.subtract(theta,labeli)),train_data))
+    error_grad = (np.transpose(np.dot(np.transpose(np.subtract(theta,labeli)),train_data)))/(n_data)
     #print(error_grad)
     ##################
     # YOUR CODE HERE #
@@ -299,3 +300,5 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label_b == va
 # Find the accuracy on Testing Dataset
 predicted_label_b = mlrPredict(W_b, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label_b == test_label).astype(float))) + '%')
+
+winsound.Beep(300,2000)
