@@ -114,7 +114,7 @@ def blrObjFunction(initialWeights, *args):
     theta = sigmoid(sig)
     #print(theta)
     n_features = train_data.shape[1]
-    print(n_features)
+    #print(n_features)
     error = 0
     error_grad = np.zeros((n_features + 1, 1))
     for i in range(n_data):
@@ -125,15 +125,18 @@ def blrObjFunction(initialWeights, *args):
             error = error + np.log(1 - theta[i])
    
     error = (-1 * error) / (n_data)  
-    print(error)        
-
+    print(error)
+    theta = np.reshape(theta,[len(theta),1])   
+    #print(np.shape(theta))
+    #print(np.subtract(theta,labeli))
     error_grad = np.transpose(np.dot(np.transpose(np.subtract(theta,labeli)),train_data))
+    #print(error_grad)
     ##################
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
-    return error, error_grad
+    return error, np.array(error_grad).flatten()
 
 
 def blrPredict(W, data):
@@ -238,11 +241,13 @@ W = np.zeros((n_feature + 1, n_class))
 initialWeights = np.zeros((n_feature + 1, 1))
 opts = {'maxiter': 100}
 for i in range(n_class):
+    print(i)
     labeli = Y[:, i].reshape(n_train, 1)
     args = (train_data, labeli)
     nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
     W[:, i] = nn_params.x.reshape((n_feature + 1,))
 
+#print(np.shape(W))
 # Find the accuracy on Training Dataset
 predicted_label = blrPredict(W, train_data)
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
