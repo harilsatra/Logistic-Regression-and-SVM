@@ -155,7 +155,13 @@ def blrPredict(W, data):
 
     """
     label = np.zeros((data.shape[0], 1))
-
+    bias = np.ones(data.shape[0])
+    data = np.insert(data,0,bias,axis=1)
+    sig = np.dot(np.transpose(W),np.transpose(data))
+    print(np.shape(sig))
+    label = np.argmax(sig, axis = 0)
+    label = np.reshape(label,[len(label),1])
+    print(np.shape(label))
     ##################
     # YOUR CODE HERE #
     ##################
