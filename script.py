@@ -351,6 +351,33 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == vali
 predicted_label = clf.predict(test_data)
 predicated_label = np.reshape(predicted_label,[test_data[0].shape,1])
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
+
+#Varying the value of C
+count = 1.0
+for i in range(11):
+    if(count == 1.0):
+        clf = SVC(C = 1.0)
+    
+    else:
+        clf = SVC(C = count - 1)
+    
+    count = count + 10.0
+    clf.fit(train_data,train_label.ravel())
+    #Finding accuracy on Training Dataset for radial basis and gamma set to default
+    predicted_label = clf.predict(train_data)
+    predicated_label = np.reshape(predicted_label,[train_data[0].shape,1])
+    print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
+     
+    #Finding accuracy on Validation Dataset for radial basis and gamma set to default
+    predicted_label = clf.predict(validation_data)
+    predicated_label = np.reshape(predicted_label,[validation_data[0].shape,1])
+    print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
+     
+    #Finding accuracy on Testing Dataset for radial basis and gamma set to default
+    predicted_label = clf.predict(test_data)
+    predicated_label = np.reshape(predicted_label,[test_data[0].shape,1])
+    print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
+        
  
 """
 Script for Extra Credit Part
