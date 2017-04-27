@@ -353,13 +353,9 @@ predicated_label = np.reshape(predicted_label,[test_data[0].shape,1])
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 
 #Varying the value of C
-count = 1.0
-for i in range(11):
-    if(count == 1.0):
-        clf = SVC(C = 1.0)
-    
-    else:
-        clf = SVC(C = count - 1)
+count = 10.0
+for i in range(10):
+    clf = SVC(C = count)
     
     count = count + 10.0
     clf.fit(train_data,train_label.ravel())
