@@ -207,7 +207,7 @@ def mlrObjFunction(params, *args):
     theta = theta_num / theta_den
     
     for i in range(n_data):
-        intermediateSum = 0.0
+        #intermediateSum = 0.0
         for j in range(n_class):
             if labeli[i][j]:
                 error  = error + np.log(theta[i][j]) 
@@ -267,57 +267,55 @@ Y = np.zeros((n_train, n_class))
 for i in range(n_class):
     Y[:, i] = (train_label == i).astype(int).ravel()
 
-#==============================================================================
-# # Logistic Regression with Gradient Descent
-# W = np.zeros((n_feature + 1, n_class))
-# initialWeights = np.zeros((n_feature + 1, 1))
-# opts = {'maxiter': 100}
-# for i in range(n_class):
-#  print(i)
-#  labeli = Y[:, i].reshape(n_train, 1)
-#  args = (train_data, labeli)
-#  nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
-#  W[:, i] = nn_params.x.reshape((n_feature + 1,))
-#  
-# # Find the accuracy on Training Dataset
-# predicted_label = blrPredict(W, train_data)
-# print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
-#  
-# # Find the accuracy on Validation Dataset
-# predicted_label = blrPredict(W, validation_data)
-# print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
-#  
-# # Find the accuracy on Testing Dataset
-# predicted_label = blrPredict(W, test_data)
-# print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
-# 
-# f1 = open('params.pickle', 'wb') 
-# pickle.dump(W, f1) 
-# f1.close()
-#==============================================================================
+ # Logistic Regression with Gradient Descent
+W = np.zeros((n_feature + 1, n_class))
+initialWeights = np.zeros((n_feature + 1, 1))
+opts = {'maxiter': 100}
+for i in range(n_class):
+ print(i)
+ labeli = Y[:, i].reshape(n_train, 1)
+ args = (train_data, labeli)
+ nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
+ W[:, i] = nn_params.x.reshape((n_feature + 1,))
+  
+ # Find the accuracy on Training Dataset
+predicted_label = blrPredict(W, train_data)
+print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
+  
+# Find the accuracy on Validation Dataset
+predicted_label = blrPredict(W, validation_data)
+print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
+  
+# Find the accuracy on Testing Dataset
+predicted_label = blrPredict(W, test_data)
+print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
+ 
+f1 = open('params.pickle', 'wb') 
+pickle.dump(W, f1) 
+f1.close()
  
 """
 Script for Support Vector Machine
 """
 print('\n\n--------------SVM-------------------\n\n')
-#Creating svc model with linear kernel
+ #Creating svc model with linear kernel
 clf = SVC(kernel = 'linear')
 clf.fit(train_data,train_label.ravel())
 #Finding accuracy on Training Dataset for linear kernel and other default params
 predicted_label = clf.predict(train_data)
 predicated_label = np.reshape(predicted_label,[train_data.shape[0],1])
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
- 
+  
 #Finding accuracy on Validation Dataset for linear kernel and other default params
 predicted_label = clf.predict(validation_data)
 predicated_label = np.reshape(predicted_label,[validation_data.shape[0],1])
 print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
- 
+  
 #Finding accuracy on Testing Dataset for linear kernel and other default params
 predicted_label = clf.predict(test_data)
 predicated_label = np.reshape(predicted_label,[test_data.shape[0],1])
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
- 
+  
 #Creating svc model with radial basis and gamma set to 1 
 clf = SVC(gamma = 1)
 clf.fit(train_data,train_label.ravel())
@@ -325,17 +323,17 @@ clf.fit(train_data,train_label.ravel())
 predicted_label = clf.predict(train_data)
 predicated_label = np.reshape(predicted_label,[train_data.shape[0],1])
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
- 
+  
 #Finding accuracy on Validation Dataset for radial basis and gamma set to 1 
 predicted_label = clf.predict(validation_data)
 predicated_label = np.reshape(predicted_label,[validation_data.shape[0],1])
 print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
- 
+  
 #Finding accuracy on Testing Dataset for radial basis and gamma set to 1 
 predicted_label = clf.predict(test_data)
 predicated_label = np.reshape(predicted_label,[test_data.shape[0],1])
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
- 
+  
 #Creating svc model with radial basis and gamma set to default
 clf = SVC()
 clf.fit(train_data,train_label.ravel())
@@ -343,17 +341,17 @@ clf.fit(train_data,train_label.ravel())
 predicted_label = clf.predict(train_data)
 predicated_label = np.reshape(predicted_label,[train_data.shape[0],1])
 print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
- 
+  
 #Finding accuracy on Validation Dataset for radial basis and gamma set to default
 predicted_label = clf.predict(validation_data)
 predicated_label = np.reshape(predicted_label,[validation_data.shape[0],1])
 print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
- 
+  
 #Finding accuracy on Testing Dataset for radial basis and gamma set to default
 predicted_label = clf.predict(test_data)
 predicated_label = np.reshape(predicted_label,[test_data.shape[0],1])
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
-
+ 
 #Varying the value of C
 count = 10.0
 for i in range(10):
@@ -405,5 +403,5 @@ f2 = open('params_bonus.pickle', 'wb')
 pickle.dump(W_b, f2)
 f2.close() 
 
-winsound.Beep(300,2000)
+#winsound.Beep(300,2000)
 #os.system('say"Finish"')
